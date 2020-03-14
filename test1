@@ -1,0 +1,65 @@
+#include<bits/stdc++.h>
+using namespace std;
+int maze[10][10];
+int n;
+int min1=100;
+struct record{							
+	int x;
+	int y;
+}rec[100];
+void search(int n1)							
+{
+	if(rec[n1].x==n-2&&rec[n1].y==n-2)			
+	{
+		if(min1>n1)
+		min1=n1;
+		return;
+	}
+	if(maze[rec[n1].y-1][rec[n1].x]==0)		
+	{
+		rec[n1+1].x=rec[n1].x;
+		rec[n1+1].y=rec[n1].y-1;	
+		maze[rec[n1].y][rec[n1].x]=1;
+		search(n1+1);
+		maze[rec[n1].y][rec[n1].x]=0;	
+	}
+	if(maze[rec[n1].y][rec[n1].x+1]==0)
+	{
+		rec[n1+1].x=rec[n1].x+1;
+		rec[n1+1].y=rec[n1].y;
+		maze[rec[n1].y][rec[n1].x]=1;
+		search(n1+1);
+		maze[rec[n1].y][rec[n1].x]=0;
+	}
+	if(maze[rec[n1].y+1][rec[n1].x]==0)
+	{
+		rec[n1+1].x=rec[n1].x;
+		rec[n1+1].y=rec[n1].y+1;
+		maze[rec[n1].y][rec[n1].x]=1;
+		search(n1+1);
+		maze[rec[n1].y][rec[n1].x]=0;
+	}
+	if(maze[rec[n1].y][rec[n1].x-1]==0)
+	{
+		rec[n1+1].x=rec[n1].x-1;
+		rec[n1+1].y=rec[n1].y;
+		maze[rec[n1].y][rec[n1].x]=1;
+		search(n1+1);
+		maze[rec[n1].y][rec[n1].x]=0;
+	}
+}
+int main()
+{
+	int i,j;
+	cin>>n;
+	for(i=0;i<n;i++)
+	for(j=0;j<n;j++)
+	cin>>maze[i][j];
+	rec[0].x=1;
+	rec[0].y=1;											
+	search(0);
+	if(min1==100)											
+	cout<<"No solution"<<endl;
+	else
+	cout<<min1<<endl;
+}
