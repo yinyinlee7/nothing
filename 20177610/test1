@@ -1,0 +1,16 @@
+import unittest
+from sodoku1 import sodoku
+class MyTest(unittest.TestCase):
+    def setUp(self):
+        print("Begin...")
+        # Run after each test case execution
+
+    def tearDown(self):
+        print("End...")
+
+    def test_1(self):
+        test_name=sodoku(8,0)
+        self.assertEqual(test_name,(0,0))
+
+
+if __name__ == '__main__':unittest.main()
